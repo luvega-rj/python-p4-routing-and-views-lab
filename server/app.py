@@ -6,19 +6,19 @@ app = Flask(__name__)
 def index():
     return '<h1>Python Operations with Flask Routing and Views</h1>'
 
-@app.route('/print/<string:parameter>')
-def print_string(parameter):
-    print(parameter)
-    return parameter
+@app.route('/print/<string:param>')
+def print_string(param):
+    print(param)
+    return param
 
-@app.route('/count/<int:parameter>')
-def count(parameter):
-    numbers = '\n'.join(str(num) for num in range(parameter + 1))
-    return numbers.rstrip('\n') + '\n'
+@app.route('/count/<int:param>')
+def count(param):
+    numbers = '\n'.join(str(num) for num in range(param + 1))
+    return numbers + '\n'
 
-@app.route('/math/<int:num1><operation><int:num2>')
+@app.route('/math/<int:num1>/<operation>/<int:num2>')
 def math(num1, operation, num2):
-    result = None
+    result = 0
     if operation == '+':
         result = num1 + num2
     elif operation == '-':
@@ -30,15 +30,3 @@ def math(num1, operation, num2):
     elif operation == '%':
         result = num1 % num2
     return str(result)
-
-def test_count_range_10(self):
-    '''counts through range of parameter in "/count/<parameter" on separate lines.'''
-    response = app.test_client().get('/count/10')
-    count = '0\n1\n2\n3\n4\n5\n6\n7\n8\n9'
-    assert response.data.decode() == count
-     
-def test_count_range_10(self):
-    '''counts through range of parameter in "/count/<parameter" on separate lines.'''
-    response = app.test_client().get('/count/10')
-    count = '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n'
-    assert response.data.decode() == count
